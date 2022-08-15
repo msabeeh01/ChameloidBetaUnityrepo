@@ -217,7 +217,9 @@ public class PlayerController : MonoBehaviour
     private bool GroundCheck()
     {
         float extraHeight = 0.05f;
-        RaycastHit2D raycastHit = Physics2D.Raycast(boxCollider2d.bounds.center, Vector2.down, boxCollider2d.bounds.extents.y + extraHeight, platformsLayerMask);
+        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2d.bounds.center, boxCollider2d.bounds.size, 0f, Vector2.down, boxCollider2d.bounds.extents.y + extraHeight, platformsLayerMask);
+
+        //RaycastHit2D raycastHit = Physics2D.Raycast(boxCollider2d.bounds.center, Vector2.down, boxCollider2d.bounds.extents.y + extraHeight, platformsLayerMask);
         Color rayColor;
         if (raycastHit.collider != null)
         {
@@ -234,9 +236,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "green")
+                if (other.gameObject.tag == "green")
         {
-            Debug.Log("Yon Won!!!");
+            Debug.Log("You Won!!!");
             winCanvas.gameObject.SetActive(true);
             SceneManager.LoadScene(currentScene + 1);
         }
@@ -244,6 +246,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
+
+
 
         if (other.gameObject.tag == "changeRed")
         {
